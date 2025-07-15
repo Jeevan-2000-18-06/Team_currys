@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Curry Choice</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <h2>What's your curry choice today? 🍛</h2>
+  <form method="POST" action="/submit">
+    <input type="text" name="name" placeholder="Your Name" required><br>
+    <input type="text" name="curry" placeholder="Curry Name" required><br>
+
+    <label for="price">Price (₹):</label><br>
+    <input type="number" name="price" placeholder="100" required><br>
+
+    <label><input type="checkbox" name="paid"> Paid?</label><br>
+
+    <label for="role">You are a:</label><br>
+    <select name="role" required>
+      <option value="">Select Role</option>
+      <option value="member">Team Member</option>
+      <option value="taker">Curry Taker</option>
+    </select><br><br>
+
+    <button type="submit">Submit</button>
+  </form>
+</body>
+</html>

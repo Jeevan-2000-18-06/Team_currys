@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Curry Orders</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <style>
+    li.unpaid {
+      color: red;
+    }
+    li.paid {
+      color: black;
+    }
+  </style>
+</head>
+<body>
+  <h2>🍛 Today's Curry Orders</h2>
+
+  {% if curry_data %}
+    {% set curry_totals = {} %}
+    {% set ns = namespace(total=0, paid_count=0, unpaid_count=0) %}
+
+    {# Build curry totals #}
+    {% for name, info in curry_data.items() %}
+      {% if info is mapping and info.role != 'taker' and info.curry and info.price is defined %}
+        {% set curry_totals = curry_totals.update({info.curry: curry_totals.get(info.curry, 0) + info.price}) or curry_totals %}
+      {% endif %}
+    {% endfor %}
+
+    {% if curry_totals %}
+      <h4>📊 Curry-wise Totals:</h4>
+      <ul>
+        {% for curry, amount in curry_totals.items() %}
+          <li>{{ curry }} – ₹{{ amount }}</li>
+        {% endfor %}
+      </ul>
+
+      <ul>
+        {% for name, info in curry_data|dictsort %}
+          {% if info is mapping and info.role != 'taker' and info.curry and info.price is defined %}
+            <li class="{{ 'paid' if info.paid else 'unpaid' }}">
+              <b>{{ name }}</b>: {{ info.curry }} – ₹{{ info.price }} – {{ '✅' if info.paid else '❌' }}
+            </li>
+            {% set ns.total = ns.total + info.price %}
+            {% if info.paid %}
+              {% set ns.paid_count = ns.paid_count + 1 %}
+            {% else %}
+              {% set ns.unpaid_count = ns.unpaid_count + 1 %}
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+      </ul>
+
+      <p><strong>Total: ₹{{ ns.total }}</strong></p>
+      <p><strong>✅ Paid:</strong> {{ ns.paid_count }} | <strong>❌ Unpaid:</strong> {{ ns.unpaid_count }}</p>
+
+      <form method="POST" action="/clear">
+        <button type="submit" style="background:red; color:white;">🗑 Clear Orders</button>
+      </form>
+    {% else %}
+      <p>No valid orders found today.</p>
+    {% endif %}
+  {% else %}
+    <p>No orders found.</p>
+  {% endif %}
+</body>
+</html>
