@@ -62,16 +62,13 @@ def thanks():
 
 @app.route("/taker")
 def taker():
-    date = datetime.now().strftime('%Y-%m-%d')
     try:
         with open("data.json", "r") as f:
-            data = json.load(f)
-        today_data = data.get(date, {})
+            all_data = json.load(f)
     except:
-        today_data = {}
-        
+        all_data = {}
 
-    return render_template("taker.html", curry_data=today_data)
+    return render_template("taker.html", all_data=all_data)
 
 
 @app.route('/clear', methods=['POST'])

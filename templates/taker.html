@@ -2,7 +2,6 @@
 <html>
 <head>
   <title>Curry Orders</title>
-  <link rel="stylesheet" href="/static/style.css">
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -14,29 +13,26 @@
       color: #ff9800;
     }
 
+    .date-section {
+      margin-top: 30px;
+      border-top: 1px solid #ccc;
+      padding-top: 20px;
+    }
+
     .curry-container {
       display: flex;
       flex-wrap: wrap;
       gap: 15px;
-      margin-top: 20px;
+      margin-top: 10px;
     }
 
     .curry-card {
-      background: #fefefe;
+      background: #fff;
       border-left: 5px solid #ff9800;
       padding: 15px;
       width: 260px;
       border-radius: 10px;
       box-shadow: 2px 2px 8px rgba(0,0,0,0.1);
-    }
-
-    .curry-card h4 {
-      margin: 0 0 8px;
-      font-size: 18px;
-    }
-
-    .curry-card p {
-      margin: 5px 0;
     }
 
     .paid {
@@ -50,59 +46,46 @@
     }
 
     .summary {
-      margin-top: 30px;
-    }
-
-    .clear-btn {
-      background: red;
-      color: white;
-      padding: 10px 15px;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      margin-top: 20px;
-    }
-
-    .clear-btn:hover {
-      background: darkred;
+      margin-top: 15px;
+      font-weight: bold;
     }
   </style>
 </head>
 <body>
-  <h2>🍛 Team Curry Orders for Today</h2>
+  <h2>🍛 Team Curry Orders (Grouped by Date)</h2>
 
-  {% if curry_data %}
-    {% set total = 0 %}
-    {% set paid_count = 0 %}
-    {% set unpaid_count = 0 %}
-
-    <div class="curry-container">
-      {% for name, info in curry_data|dictsort %}
-        {% if info is mapping and info.role != 'taker' and info.curry and info.price is defined %}
-          <div class="curry-card">
-            <h4>{{ name }}</h4>
-            <p><strong>Curry:</strong> {{ info.curry }}</p>
-            <p><strong>Price:</strong> ₹{{ info.price }}</p>
-            <p><strong>Status:</strong> <span class="{{ 'paid' if info.paid else 'unpaid' }}">{{ 'Paid ✅' if info.paid else 'Unpaid ❌' }}</span></p>
-          </div>
-          {% set total = total + info.price %}
-          {% if info.paid %}
-            {% set paid_count = paid_count + 1 %}
-          {% else %}
-            {% set unpaid_count = unpaid_count + 1 %}
-          {% endif %}
-        {% endif %}
-      {% endfor %}
-    </div>
-
-    <div class="summary">
-      <p><strong>Total Amount: ₹{{ total }}</strong></p>
-      <p><strong>✅ Paid:</strong> {{ paid_count }} | <strong>❌ Unpaid:</strong> {{ unpaid_count }}</p>
-
-      <form method="POST" action="/clear">
-        <button type="submit" class="clear-btn">🗑 Clear Orders</button>
-      </form>
-    </div>
+  {% if all_data %}
+    {% for date, orders in all_data|dictsort(reverse=True) %}
+      <div class="date-section">
+        <h3>📅 {{ date }}</h3>
+        {% set ns = namespace(total=0, paid_count=0, unpaid_count=0) %}
+        <div class="curry-container">
+          {% for name, info in orders.items() %}
+            {% if info is mapping and info.role != 'taker' %}
+              <div class="curry-card">
+                <h4>{{ name }}</h4>
+                <p><strong>Curry:</strong> {{ info.curry }}</p>
+                <p><strong>Price:</strong> ₹{{ info.price }}</p>
+                <p><strong>Status:</strong>
+                  <span class="{{ 'paid' if info.paid else 'unpaid' }}">
+                    {{ 'Paid ✅' if info.paid else 'Unpaid ❌' }}
+                  </span>
+                </p>
+              </div>
+              {% set ns.total = ns.total + info.price %}
+              {% if info.paid %}
+                {% set ns.paid_count = ns.paid_count + 1 %}
+              {% else %}
+                {% set ns.unpaid_count = ns.unpaid_count + 1 %}
+              {% endif %}
+            {% endif %}
+          {% endfor %}
+        </div>
+        <div class="summary">
+          Total: ₹{{ ns.total }} | ✅ Paid: {{ ns.paid_count }} | ❌ Unpaid: {{ ns.unpaid_count }}
+        </div>
+      </div>
+    {% endfor %}
   {% else %}
     <p>No orders found.</p>
   {% endif %}
