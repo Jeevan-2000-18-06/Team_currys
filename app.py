@@ -69,14 +69,14 @@ def taker():
     return render_template("taker.html", curry_data=today_data)
 
 
-# @app.route('/clear', methods=['POST'])
-# def clear():
-#     data = load_data()
-#     today = datetime.now().strftime('%Y-%m-%d')
-#     if today in data:
-#         del data[today]
-#         save_data(data)
-#     return redirect('/taker')
+@app.route('/clear', methods=['POST'])
+def clear():
+    data = load_data()
+    today = datetime.now().strftime('%Y-%m-%d')
+    if today in data:
+        del data[today]
+        save_data(data)
+    return redirect('/taker')
 
 from waitress import serve
 
