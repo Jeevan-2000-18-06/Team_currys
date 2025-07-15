@@ -1,95 +1,93 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Curry Choice</title>
-  <link rel="stylesheet" href="/static/style.css">
+  <title>Curry Orders</title>
   <style>
     body {
       font-family: Arial, sans-serif;
       padding: 20px;
-      background: #fffdf4;
+      background: #fffaf3;
     }
 
-    .form-container {
+    h2 {
+      color: #ff9800;
+    }
+
+    .date-section {
+      margin-top: 30px;
+      border-top: 1px solid #ccc;
+      padding-top: 20px;
+    }
+
+    .curry-container {
       display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 40px;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-top: 10px;
     }
 
-    form {
-      flex: 1;
-      max-width: 500px;
+    .curry-card {
       background: #fff;
-      padding: 20px;
+      border-left: 5px solid #ff9800;
+      padding: 15px;
+      width: 260px;
       border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      box-shadow: 2px 2px 8px rgba(0,0,0,0.1);
     }
 
-    form input,
-    form select {
-      width: 100%;
-      padding: 10px;
-      margin-top: 8px;
-      margin-bottom: 15px;
-      border-radius: 5px;
-      border: 1px solid #ccc;
+    .paid {
+      color: green;
+      font-weight: bold;
     }
 
-    form button {
-      padding: 10px 20px;
-      background: #ff9800;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
+    .unpaid {
+      color: red;
+      font-weight: bold;
     }
 
-    .qr-section {
-      text-align: center;
-    }
-
-    .qr-section img {
-      width: 220px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
-
-    .qr-section p {
-      font-size: 14px;
-      color: gray;
-      margin-top: 8px;
+    .summary {
+      margin-top: 15px;
+      font-weight: bold;
     }
   </style>
 </head>
 <body>
-  <h2>What's your curry choice today? 🍛</h2>
+  <h2>🍛 Team Curry Orders (Grouped by Date)</h2>
 
-  <div class="form-container">
-    <form method="POST" action="/submit">
-      <input type="text" name="name" placeholder="Your Name" required>
-      <input type="text" name="curry" placeholder="Curry Name" required>
-
-      <label for="price">Price (₹):</label>
-      <input type="number" name="price" placeholder="100" required>
-
-      <label><input type="checkbox" name="paid"> Paid?</label>
-
-      <label for="role">You are a:</label>
-      <select name="role" required>
-        <option value="">Select Role</option>
-        <option value="member">Team Member</option>
-        <option value="taker">Curry Taker</option>
-      </select>
-
-      <button type="submit">Submit</button>
-    </form>
-
-    <div class="qr-section">
-      <h4>📱 Scan to Pay</h4>
-      <img src="/static/Image/phonepe.jpg" alt="PhonePe QR">
-      <p>Linked to ****7252</p>
-    </div>
-  </div>
+  {% if all_data %}
+    {% for date, orders in all_data|dictsort(reverse=True) %}
+      <div class="date-section">
+        <h3>📅 {{ date }}</h3>
+        {% set ns = namespace(total=0, paid_count=0, unpaid_count=0) %}
+        <div class="curry-container">
+          {% for name, info in orders.items() %}
+            {% if info is mapping and info.role != 'taker' %}
+              <div class="curry-card">
+                <h4>{{ name }}</h4>
+                <p><strong>Curry:</strong> {{ info.curry }}</p>
+                <p><strong>Price:</strong> ₹{{ info.price }}</p>
+                <p><strong>Status:</strong>
+                  <span class="{{ 'paid' if info.paid else 'unpaid' }}">
+                    {{ 'Paid ✅' if info.paid else 'Unpaid ❌' }}
+                  </span>
+                </p>
+              </div>
+              {% set ns.total = ns.total + info.price %}
+              {% if info.paid %}
+                {% set ns.paid_count = ns.paid_count + 1 %}
+              {% else %}
+                {% set ns.unpaid_count = ns.unpaid_count + 1 %}
+              {% endif %}
+            {% endif %}
+          {% endfor %}
+        </div>
+        <div class="summary">
+          Total: ₹{{ ns.total }} | ✅ Paid: {{ ns.paid_count }} | ❌ Unpaid: {{ ns.unpaid_count }}
+        </div>
+      </div>
+    {% endfor %}
+  {% else %}
+    <p>No orders found.</p>
+  {% endif %}
 </body>
 </html>

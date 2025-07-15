@@ -2,32 +2,94 @@
 <html>
 <head>
   <title>Curry Choice</title>
-  <link rel="stylesheet" href="/static/form.css">
+  <link rel="stylesheet" href="/static/style.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background: #fffdf4;
+    }
+
+    .form-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 40px;
+    }
+
+    form {
+      flex: 1;
+      max-width: 500px;
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    form input,
+    form select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 8px;
+      margin-bottom: 15px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    form button {
+      padding: 10px 20px;
+      background: #ff9800;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .qr-section {
+      text-align: center;
+    }
+
+    .qr-section img {
+      width: 220px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    .qr-section p {
+      font-size: 14px;
+      color: gray;
+      margin-top: 8px;
+    }
+  </style>
 </head>
 <body>
   <h2>What's your curry choice today? 🍛</h2>
-  <form method="POST" action="/submit">
-    <input type="text" name="name" placeholder="Your Name" required><br>
-    <input type="text" name="curry" placeholder="Curry Name" required><br>
 
-    <label for="price">Price (₹):</label><br>
-    <input type="number" name="price" placeholder="100" required><br>
+  <div class="form-container">
+    <form method="POST" action="/submit">
+      <input type="text" name="name" placeholder="Your Name" required>
+      <input type="text" name="curry" placeholder="Curry Name" required>
 
-    <label><input type="checkbox" name="paid"> Paid?</label><br>
+      <label for="price">Price (₹):</label>
+      <input type="number" name="price" placeholder="100" required>
 
-    <label for="role">You are a:</label><br>
-    <select name="role" required>
-      <option value="">Select Role</option>
-      <option value="member">Team Member</option>
-      <option value="taker">Curry Taker</option>
-    </select><br><br>
+      <label><input type="checkbox" name="paid"> Paid?</label>
 
-    <button type="submit">Submit</button>
-  </form>
-  <hr>
-<h3>📱 Scan to Pay via PhonePe</h3>
-<img src="/static/Image/phonepe.jpg" alt="PhonePe QR" style="width: 220px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
-<p style="font-size: 14px; color: gray;">Linked to ending with ****7252</p>
+      <label for="role">You are a:</label>
+      <select name="role" required>
+        <option value="">Select Role</option>
+        <option value="member">Team Member</option>
+        <option value="taker">Curry Taker</option>
+      </select>
 
+      <button type="submit">Submit</button>
+    </form>
+
+    <div class="qr-section">
+      <h4>📱 Scan to Pay</h4>
+      <img src="/static/Image/phonepe.jpg" alt="PhonePe QR">
+      <p>Linked to ****7252</p>
+    </div>
+  </div>
 </body>
 </html>
