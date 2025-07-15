@@ -17,7 +17,7 @@ def save_data(data):
     with open(DATA_FILE, 'w') as f:
         json.dump(data, f, indent=2)
 
-@app.route('/index.html')
+@app.route('/')
 def home():
     return render_template('index.html')
 
@@ -72,5 +72,8 @@ def taker():
 #         save_data(data)
 #     return redirect('/taker')
 
+from waitress import serve
+
 if __name__ == '__main__':
-    app.run(debug=True)
+    serve(app, host='0.0.0.0', port=5000)
+
