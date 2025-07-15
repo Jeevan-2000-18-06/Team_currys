@@ -11,11 +11,20 @@ from email.utils import COMMASPACE
 EMAIL = "surabhijeevansai@gmail.com"
 PASSWORD = "naas jtks weka kmlq"
 TEAM_EMAILS = [
-    "jeevan.s@stylosoftllp.com",
+     "jeevan.s@stylosoftllp.com",
     "surabhijeevansai@gmail.com",
     "bhanu.b@styloworld.io",
     "neha.r@styloworld.io",
-    "Nagaraju.k@styloworld.io"
+    "Nagaraju.k@styloworld.io",
+    "charan.g@styloworld.io",
+    "nikhilteja.ch@styloworld.io",
+    "bharathkumar.p@styloworld.io",
+    "naveen.ch@stangroupco.com",
+    "murali.k@styloworld.io",
+    "satyasai.k@styloworld.io",
+    "saikeerthana@stylosoftllp.com",
+    "nagireddy.g@styloworld.io",
+    "priyanka.b@styloworld.io"
 ]
 
 DATA_FILE = "data.json"
