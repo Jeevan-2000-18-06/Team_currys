@@ -35,7 +35,7 @@ def send_reminder_email():
       <h2 style="color: #e76f51;">Hello Team 👋</h2>
       <p>This is a gentle reminder to <strong>submit your curry order</strong> for today's lunch 🍛.</p>
       <p style="margin: 20px 0;">
-        <a href="http://localhost:5000/form"
+        <a href="https://team-currys-1.onrender.com"
            style="background-color: #2a9d8f; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: bold;">
           Submit Curry Order Now
         </a>
@@ -69,7 +69,7 @@ if __name__ == "__main__":
     print("📧 Waiting to send daily curry reminder at 12:12 PM...")
     
     # 🔧 Uncomment this line to test instantly:
-    send_reminder_email()
+    # send_reminder_email()
 
     while True:
         schedule.run_pending()
