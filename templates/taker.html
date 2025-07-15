@@ -4,61 +4,105 @@
   <title>Curry Orders</title>
   <link rel="stylesheet" href="/static/style.css">
   <style>
-    li.unpaid {
-      color: red;
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background: #fffaf3;
     }
-    li.paid {
-      color: black;
+
+    h2 {
+      color: #ff9800;
+    }
+
+    .curry-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .curry-card {
+      background: #fefefe;
+      border-left: 5px solid #ff9800;
+      padding: 15px;
+      width: 260px;
+      border-radius: 10px;
+      box-shadow: 2px 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .curry-card h4 {
+      margin: 0 0 8px;
+      font-size: 18px;
+    }
+
+    .curry-card p {
+      margin: 5px 0;
+    }
+
+    .paid {
+      color: green;
+      font-weight: bold;
+    }
+
+    .unpaid {
+      color: red;
+      font-weight: bold;
+    }
+
+    .summary {
+      margin-top: 30px;
+    }
+
+    .clear-btn {
+      background: red;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+
+    .clear-btn:hover {
+      background: darkred;
     }
   </style>
 </head>
 <body>
-  <h2>🍛 Today's Curry Orders</h2>
+  <h2>🍛 Team Curry Orders for Today</h2>
 
   {% if curry_data %}
-    {% set curry_totals = {} %}
-    {% set ns = namespace(total=0, paid_count=0, unpaid_count=0) %}
+    {% set total = 0 %}
+    {% set paid_count = 0 %}
+    {% set unpaid_count = 0 %}
 
-    {# Build curry totals #}
-    {% for name, info in curry_data.items() %}
-      {% if info is mapping and info.role != 'taker' and info.curry and info.price is defined %}
-        {% set curry_totals = curry_totals.update({info.curry: curry_totals.get(info.curry, 0) + info.price}) or curry_totals %}
-      {% endif %}
-    {% endfor %}
-
-    {% if curry_totals %}
-      <h4>📊 Curry-wise Totals:</h4>
-      <ul>
-        {% for curry, amount in curry_totals.items() %}
-          <li>{{ curry }} – ₹{{ amount }}</li>
-        {% endfor %}
-      </ul>
-
-      <ul>
-        {% for name, info in curry_data|dictsort %}
-          {% if info is mapping and info.role != 'taker' and info.curry and info.price is defined %}
-            <li class="{{ 'paid' if info.paid else 'unpaid' }}">
-              <b>{{ name }}</b>: {{ info.curry }} – ₹{{ info.price }} – {{ '✅' if info.paid else '❌' }}
-            </li>
-            {% set ns.total = ns.total + info.price %}
-            {% if info.paid %}
-              {% set ns.paid_count = ns.paid_count + 1 %}
-            {% else %}
-              {% set ns.unpaid_count = ns.unpaid_count + 1 %}
-            {% endif %}
+    <div class="curry-container">
+      {% for name, info in curry_data|dictsort %}
+        {% if info is mapping and info.role != 'taker' and info.curry and info.price is defined %}
+          <div class="curry-card">
+            <h4>{{ name }}</h4>
+            <p><strong>Curry:</strong> {{ info.curry }}</p>
+            <p><strong>Price:</strong> ₹{{ info.price }}</p>
+            <p><strong>Status:</strong> <span class="{{ 'paid' if info.paid else 'unpaid' }}">{{ 'Paid ✅' if info.paid else 'Unpaid ❌' }}</span></p>
+          </div>
+          {% set total = total + info.price %}
+          {% if info.paid %}
+            {% set paid_count = paid_count + 1 %}
+          {% else %}
+            {% set unpaid_count = unpaid_count + 1 %}
           {% endif %}
-        {% endfor %}
-      </ul>
+        {% endif %}
+      {% endfor %}
+    </div>
 
-      <p><strong>Total: ₹{{ ns.total }}</strong></p>
-      <p><strong>✅ Paid:</strong> {{ ns.paid_count }} | <strong>❌ Unpaid:</strong> {{ ns.unpaid_count }}</p>
+    <div class="summary">
+      <p><strong>Total Amount: ₹{{ total }}</strong></p>
+      <p><strong>✅ Paid:</strong> {{ paid_count }} | <strong>❌ Unpaid:</strong> {{ unpaid_count }}</p>
 
       <form method="POST" action="/clear">
-        <button type="submit" style="background:red; color:white;">🗑 Clear Orders</button>
+        <button type="submit" class="clear-btn">🗑 Clear Orders</button>
       </form>
-    {% else %}
-      <p>No valid orders found today.</p>
-    {% endif %}
+    </div>
   {% else %}
     <p>No orders found.</p>
   {% endif %}

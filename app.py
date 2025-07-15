@@ -49,11 +49,15 @@ def submit():
     if role == "taker":
         return redirect("/taker")
     else:
-        return redirect("/thanks")
+        return redirect(f"/thanks?name={name}&curry={curry}")
 
-@app.route('/thanks')
+
+@app.route("/thanks")
 def thanks():
-    return render_template("thanks.html")
+    name = request.args.get("name", "Friend")
+    curry = request.args.get("curry", "your curry")
+    return render_template("thanks.html", name=name, curry=curry)
+
 
 
 @app.route("/taker")
@@ -65,6 +69,7 @@ def taker():
         today_data = data.get(date, {})
     except:
         today_data = {}
+        
 
     return render_template("taker.html", curry_data=today_data)
 
