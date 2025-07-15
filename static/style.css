@@ -1,28 +1,22 @@
 body {
-  font-family: 'Fredoka', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background: linear-gradient(to bottom, #fffaf0, #ffe7ba);
   color: #333;
-  padding: 40px;
+  margin: 0;
+  padding: 20px;
   text-align: center;
-  position: relative;
-  overflow: hidden;
+  min-height: 100vh;
+  box-sizing: border-box;
+  overflow-x: hidden;
 }
 
-body::before {
-  content: "🍛 🍽️ 🍲 🥘 🍛 🍽️";
-  position: absolute;
-  top: 50px;
-  left: 0;
-  width: 100%;
-  font-size: 50px;
-  animation: floatCurry 15s linear infinite;
-  white-space: nowrap;
-  opacity: 0.08;
-}
-
-@keyframes floatCurry {
-  0% { transform: translateX(100%); }
-  100% { transform: translateX(-100%); }
+.container {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 30px 20px;
+  background: #fff8e1;
+  border-radius: 12px;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
 }
 
 h2 {
@@ -31,25 +25,47 @@ h2 {
   margin-bottom: 30px;
 }
 
-a {
-  display: inline-block;
-  margin: 15px;
-  padding: 12px 25px;
-  background-color: #f39c12;
-  color: white;
-  text-decoration: none;
+button {
+  width: 100%;
+  max-width: 240px;
+  padding: 12px 20px;
+  font-size: 16px;
+  margin: 10px 0;
   border-radius: 8px;
-  font-size: 18px;
+  border: none;
+  background-color: #ff9800;
+  color: white;
+  cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
-a:hover {
+button:hover {
   background-color: #e67e22;
 }
 
-/* 📱 Responsive adjustments for mobile */
-@media only screen and (max-width: 600px) {
-  body {
+/* Optional background emoji animation */
+body::before {
+  content: "🍛 🍽️ 🍲 🥘 🍛 🍽️";
+  position: absolute;
+  top: 60px;
+  left: 0;
+  width: 100%;
+  font-size: 50px;
+  animation: floatCurry 15s linear infinite;
+  white-space: nowrap;
+  opacity: 0.05;
+  pointer-events: none;
+}
+
+@keyframes floatCurry {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
+}
+
+/* Responsive Layout */
+@media screen and (max-width: 600px) {
+  .container {
+    width: 90%;
     padding: 20px;
   }
 
@@ -57,14 +73,8 @@ a:hover {
     font-size: 22px;
   }
 
-  a {
-    font-size: 16px;
-    padding: 10px 20px;
-    margin: 10px;
-  }
-
-  body::before {
-    font-size: 30px;
-    top: 20px;
+  button {
+    font-size: 15px;
+    padding: 10px;
   }
 }
