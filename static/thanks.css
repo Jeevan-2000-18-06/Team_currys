@@ -31,8 +31,25 @@ a {
   padding: 10px 16px;
   border-radius: 8px;
   transition: background-color 0.3s ease;
+  font-size: 16px;
 }
 
 a:hover {
   background-color: #bbdefb;
+}
+
+/* 📱 Mobile responsive tweaks */
+@media (max-width: 600px) {
+  h2 {
+    font-size: 22px;
+  }
+
+  p {
+    font-size: 16px;
+  }
+
+  a {
+    padding: 8px 14px;
+    font-size: 14px;
+  }
 }

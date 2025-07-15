@@ -18,13 +18,16 @@ form {
   padding: 25px 40px;
   box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
   margin-bottom: 30px;
+  width: 100%;
+  max-width: 400px;
 }
 
-input, select, button {
+input,
+select,
+button {
   padding: 10px;
   margin: 8px 0;
   width: 100%;
-  max-width: 300px;
   border-radius: 5px;
   border: 1px solid #ccc;
   box-sizing: border-box;
@@ -60,4 +63,37 @@ img[alt="PhonePe QR"] {
   width: 220px;
   border-radius: 10px;
   box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
+  max-width: 100%;
+}
+
+/* 📱 Responsive adjustments */
+@media only screen and (max-width: 600px) {
+  body {
+    padding: 15px;
+  }
+
+  form {
+    padding: 20px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  img[alt="PhonePe QR"] {
+    width: 180px;
+  }
+
+  h2 {
+    font-size: 20px;
+  }
+
+  h3 {
+    font-size: 16px;
+  }
+
+  input,
+  select,
+  button {
+    max-width: 100%;
+    font-size: 16px;
+  }
 }

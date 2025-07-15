@@ -1,49 +1,5 @@
-/* body {
-  font-family: sans-serif;
-  padding: 20px;
-}
-input, button {
-  margin: 10px;
-  padding: 10px;
-  font-size: 16px;
-} */
-
-
-
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #fff8e7;
-  color: #333;
-  padding: 40px;
-  text-align: center;
-}
-
-h2 {
-  font-size: 28px;
-  color: #d35400;
-  margin-bottom: 30px;
-}
-
-a {
-  display: inline-block;
-  margin: 15px;
-  padding: 12px 25px;
-  background-color: #f39c12;
-  color: white;
-  text-decoration: none;
-  border-radius: 8px;
-  font-size: 18px;
-  transition: background-color 0.3s ease;
-}
-
-a:hover {
-  background-color: #e67e22;
-}
-
-
-
-body {
-  font-family: 'Fredoka', sans-serif;
+  font-family: 'Fredoka', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background: linear-gradient(to bottom, #fffaf0, #ffe7ba);
   color: #333;
   padding: 40px;
@@ -69,4 +25,46 @@ body::before {
   100% { transform: translateX(-100%); }
 }
 
+h2 {
+  font-size: 28px;
+  color: #d35400;
+  margin-bottom: 30px;
+}
 
+a {
+  display: inline-block;
+  margin: 15px;
+  padding: 12px 25px;
+  background-color: #f39c12;
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-size: 18px;
+  transition: background-color 0.3s ease;
+}
+
+a:hover {
+  background-color: #e67e22;
+}
+
+/* 📱 Responsive adjustments for mobile */
+@media only screen and (max-width: 600px) {
+  body {
+    padding: 20px;
+  }
+
+  h2 {
+    font-size: 22px;
+  }
+
+  a {
+    font-size: 16px;
+    padding: 10px 20px;
+    margin: 10px;
+  }
+
+  body::before {
+    font-size: 30px;
+    top: 20px;
+  }
+}
