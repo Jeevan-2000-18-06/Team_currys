@@ -12,7 +12,8 @@ PASSWORD = "naas jtks weka kmlq"
 
 TEAM_EMAILS = [
     "jeevan.s@stylosoftllp.com",
-    "surabhijeevansai@gmail.com"
+    "surabhijeevansai@gmail.com",
+    "murali.k@styloworld.io"
     # "bhanu.b@styloworld.io",
     # "neha.r@styloworld.io",
     # "Nagaraju.k@styloworld.io",
@@ -20,7 +21,6 @@ TEAM_EMAILS = [
     # "nikhilteja.ch@styloworld.io",
     # "bharathkumar.p@styloworld.io",
     # "naveen.ch@stangroupco.com",
-    # "murali.k@styloworld.io",
     # "satyasai.k@styloworld.io",
     # "saikeerthana@stylosoftllp.com",
     # "nagireddy.g@styloworld.io",
