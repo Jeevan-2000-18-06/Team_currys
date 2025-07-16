@@ -13,18 +13,18 @@ PASSWORD = "naas jtks weka kmlq"
 TEAM_EMAILS = [
      "jeevan.s@stylosoftllp.com",
     "surabhijeevansai@gmail.com",
-    "bhanu.b@styloworld.io",
-    "neha.r@styloworld.io",
-    "Nagaraju.k@styloworld.io",
-    "charan.g@styloworld.io",
-    "nikhilteja.ch@styloworld.io",
-    "bharathkumar.p@styloworld.io",
-    "naveen.ch@stangroupco.com",
-    "murali.k@styloworld.io",
-    "satyasai.k@styloworld.io",
-    "saikeerthana@stylosoftllp.com",
-    "nagireddy.g@styloworld.io",
-    "priyanka.b@styloworld.io"
+    # "bhanu.b@styloworld.io",
+    # "neha.r@styloworld.io",
+    # "Nagaraju.k@styloworld.io",
+    # "charan.g@styloworld.io",
+    # "nikhilteja.ch@styloworld.io",
+    # "bharathkumar.p@styloworld.io",
+    # "naveen.ch@stangroupco.com",
+    # "murali.k@styloworld.io",
+    # "satyasai.k@styloworld.io",
+    # "saikeerthana@stylosoftllp.com",
+    # "nagireddy.g@styloworld.io",
+    # "priyanka.b@styloworld.io"
 ]
 
 DATA_FILE = "data.json"
@@ -71,6 +71,7 @@ schedule.every().day.at("12:12").do(send_curry_summary)
 
 if __name__ == "__main__":
     print("📧 Auto mail scheduler running... Waiting for 12:12 PM daily trigger.")
+    
     while True:
         schedule.run_pending()
         time.sleep(1)
