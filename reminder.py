@@ -13,18 +13,18 @@ PASSWORD = "naas jtks weka kmlq"
 TEAM_EMAILS = [
     "jeevan.s@stylosoftllp.com",
     "surabhijeevansai@gmail.com",
-    "murali.k@styloworld.io"
-    # "bhanu.b@styloworld.io",
-    # "neha.r@styloworld.io",
-    # "Nagaraju.k@styloworld.io",
-    # "charan.g@styloworld.io",
-    # "nikhilteja.ch@styloworld.io",
-    # "bharathkumar.p@styloworld.io",
-    # "naveen.ch@stangroupco.com",
-    # "satyasai.k@styloworld.io",
-    # "saikeerthana@stylosoftllp.com",
-    # "nagireddy.g@styloworld.io",
-    # "priyanka.b@styloworld.io"
+    "murali.k@styloworld.io",
+    "bhanu.b@styloworld.io",
+    "neha.r@styloworld.io",
+    "Nagaraju.k@styloworld.io",
+    "charan.g@styloworld.io",
+    "nikhilteja.ch@styloworld.io",
+    "bharathkumar.p@styloworld.io",
+    "naveen.ch@stangroupco.com",
+    "satyasai.k@styloworld.io",
+    "saikeerthana@stylosoftllp.com",
+    "nagireddy.g@styloworld.io",
+    "priyanka.b@styloworld.io"
 ]
 
 def send_reminder_email():
