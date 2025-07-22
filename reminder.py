@@ -42,9 +42,9 @@ def send_reminder_email():
       </p>
       <p>If you have already submitted your order, please ignore this email.</p>
       <hr style="margin-top: 30px; border: none; border-top: 1px solid #ddd;" />
-      <footer style="font-size: 12px; color: #777;">
-        © 2025 Stylosoft LLP · Team Currys Internal Reminder · Do not share this link externally.
-      </footer>
+      # <footer style="font-size: 12px; color: #777;">
+      #   © 2025 Stylosoft LLP · Team Currys Internal Reminder · Do not share this link externally.
+      # </footer>
     </div>
     """
 
