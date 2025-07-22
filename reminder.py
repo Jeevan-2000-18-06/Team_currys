@@ -42,25 +42,24 @@ def send_reminder_email():
       </p>
       <p>If you have already submitted your order, please ignore this email.</p>
       <hr style="margin-top: 30px; border: none; border-top: 1px solid #ddd;" />
-      # <footer style="font-size: 12px; color: #777;">
-      #   © 2025 Stylosoft LLP · Team Currys Internal Reminder · Do not share this link externally.
-      # </footer>
+    
     </div>
     """
 
+for recipient in TEAM_EMAILS:
     message = MIMEMultipart("alternative")
     message["Subject"] = subject
     message["From"] = formataddr((SENDER_NAME, EMAIL))
-    message["To"] = COMMASPACE.join(TEAM_EMAILS)
+    message["To"] = recipient
     message.attach(MIMEText(html_body, "html"))
 
     try:
         with smtplib.SMTP_SSL("smtp.gmail.com", 465) as server:
             server.login(EMAIL, PASSWORD)
-            server.sendmail(EMAIL, TEAM_EMAILS, message.as_string())
-        print("✅ Reminder email sent successfully.")
+            server.sendmail(EMAIL, recipient, message.as_string())
+        print(f"✅ Email sent to {recipient}")
     except Exception as e:
-        print("❌ Failed to send reminder email:", e)
+        print(f"❌ Failed to send email to {recipient}: {e}")
 
 # 🔁 Schedule daily at 12:12 PM
 schedule.every().day.at("12:12").do(send_reminder_email)
